@@ -4,7 +4,7 @@
 [![License: AGPL v3](https://img.shields.io/github/license/melwyncarlo/MultiCopy)](https://github.com/melwyncarlo/AeroFoil/blob/main/LICENSE)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/melwyncarlo/MultiCopy)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) 
-<br> ![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/melwyncarlo/MultiCopy) 
+<br>![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/melwyncarlo/MultiCopy) 
 [![Build Status](https://travis-ci.com/melwyncarlo/MultiCopy.svg?branch=main)](https://travis-ci.com/melwyncarlo/MultiCopy) 
 ![Codecov](https://img.shields.io/codecov/c/github/melwyncarlo/MultiCopy) 
 <br> [![Total alerts](https://img.shields.io/lgtm/alerts/g/melwyncarlo/MultiCopy.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/melwyncarlo/MultiCopy/alerts/)
