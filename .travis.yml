@@ -1,0 +1,19 @@
+codecov: true
+language: python
+before_script:
+  - sudo add-apt-repository -y ppa:freecad-maintainers/freecad-stable
+  - sudo apt update
+  - sudo apt-get install -y freecad
+  - sudo apt-get install -y qt5-default
+install:
+  - pip install codecov
+  - python -m pip install coverage
+  - pip install pytest
+  - pip install pytest-cov
+script:
+  - if freecad MultiCopy.FCMacro & then echo "True"; kill $!; else echo "False"; fi
+after_success:
+  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+  - python -m pytest --cov
+  - bash <(curl -s https://codecov.io/bash)
+
