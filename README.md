@@ -75,4 +75,4 @@ from 1 to 10 :
 ```
 
 ### <br>License
-AeroFoil is made available under the [GNU Lesser General Public License Version 2.1](https://github.com/melwyncarlo/AeroFoil/blob/main/LICENSE).
+MultiCopy is made available under the [GNU Lesser General Public License Version 2.1](https://github.com/melwyncarlo/AeroFoil/blob/main/LICENSE).
