@@ -80,15 +80,15 @@ from 1 to 3 :
   [1] = {1}-Something_{n#}
 ```
 
-The '1' and '3' values represent the duplication range where both the values are *inclusive*. The first (from) value must always be *less than or equal to* the second (to) value. The values (together) can take the form of one of the five numbering types (check 'Key Features').
+The **1** and **3** values represent the duplication range where both the values are INCLUSIVE. The first (from) value must always be LESS THAN OR EQUAL TO the second (to) value. The values (together) can take the form of one of the five numbering types (**check 'Key Features'**).
 
-'[1]' represents the first object from an assumed list of user-selected objects.
-<br>'{1}' represents the label name of the first object.
-<br>'{n#}' represents a numbering label of the type 'Ordinary Numerals'. (more on that, later)
+**[1]** represents the **first object** from an assumed list of user-selected objects.
+<br>**{1}** represents the **label name** of the first object.
+<br>**{n#}** represents a **numbering label** of the type 'Ordinary Numerals'. (more on that, later)
 
-Brackets are only used for commands of the second generic type. The square brackets '[' and ']' always lie on the left-hand side of the command; whereas, the curly brackets '{' and '}' always lie on the right-hand side of the command.
+Brackets are only used for commands of the second generic type. The square brackets **[** and **]** always lie on the left-hand side of the command; whereas, the curly brackets **{** and **}** always lie on the right-hand side of the command.
 
-Let the first object's original label name be 'Body'. Then, the above command would output a set of duplicated objects (of the first object) each labelled as follows:
+Let the first object's original label name be **Body**. Then, the above command would output a set of duplicated objects (of the first object) each labelled as follows:
 ```
 Body-Something_1
 Body-Something_2
