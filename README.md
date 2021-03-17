@@ -59,6 +59,12 @@ MultiCopy can be loaded by performing the following steps :-
 
 Before loading the MultiCopy macro, first select one or more objects from the active FreeCAD doccument, then load the macro. Next, follow the instructions in the dialog box, fill in the required inputs, and click on the 'Paste' button. In case of *error* or *warning*, you will automatically be notified of the same. In case you come across an *unexpected error*, communicate the error by mentioning the FreeCAD version, tracing the steps taken, and mentioning whether (and how much) or not any ouput was generated.
 
+
+|   | **Notes** |
+| ------------- | ------------- |
+| **(1)**  | There are a few inevitable *from-to* naming clashes between roman numerals and alphabetic characters.<br>e.g. c, v, i, x, etc.  |
+| **(2)**  | By design, roman numerals take precedence over alphabetic characters.  |
+
 For more information on the MultiCopy macro, refer to its [FreeCAD Macro Wiki Page](http://www.freecadweb.org/wiki/index.php?title=Macro_MultiCopy) or its discussion page on the [FreeCAD Forum](https://forum.freecadweb.org/viewtopic.php?f=22&t=56162).
 
 ### <br>Paste Code Commands
