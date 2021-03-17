@@ -1011,6 +1011,7 @@ class MultiCopy:
                 codeStr2 = codeStr[codeStr.index("#") + 1 : codeStr.index("|")]
             else:
                 codeStr2 = codeStr[codeStr.index("#") + 1 :]
+        codeStr2 = "0" if len(codeStr2) == 0 else codeStr2
         if codeStr1 == "n" or codeStr1 == "N":
             return '" + str(' + indexStr + ").zfill(" + codeStr2 + ') + "'
         elif codeStr1 == "ru" or codeStr1 == "RU" or codeStr1 == "R":
