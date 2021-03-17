@@ -27,6 +27,7 @@ MultiCopy allows the duplication (copy and paste) of multiple FreeCAD objects th
 * Add custom label separators
 * Add padded numbering to labels
 * Numbering types: Ordinary numerals, upper/lower-case roman numerals and upper/lower-case alphabetic characters
+* Unique 'Paste Code Commands' that allow multiple duplication procedurally as well as in nested loops
 
 ### <br>Installation
 In the [FreeCAD](https://www.freecadweb.org/) software, MultiCopy can be downloaded directly using the in-built [Addon Manager](https://wiki.freecadweb.org/Std_AddonMgr). You may need to download [GitPython](https://pypi.org/project/GitPython/) (read the relevant [documentation](https://gitpython.readthedocs.io/en/stable/intro.html)) to automatically download the associated folder (and its accompanying files); else, resort to manual download and extraction of the [MultiCopy.zip](https://github.com/melwyncarlo/MultiCopy/blob/main/MultiCopy.zip) file.
@@ -75,8 +76,23 @@ The two recurring commands in their generic form are as follows:
 
 As an example :
 ```
-from 1 to 10 :
+from 1 to 3 :
   [1] = {1}-Something_{n#}
+```
+
+The **1** and **3** values represent the duplication range where both the values are INCLUSIVE. The first (from) value must always be LESS THAN OR EQUAL TO the second (to) value. The values (together) can take the form of one of the five numbering types (**check 'Key Features'**).
+
+**[1]** represents the **first object** from an assumed list of user-selected objects.
+<br>**{1}** represents the **label name** of the first object.
+<br>**{n#}** represents a **numbering label** of the type 'Ordinary Numerals'. (more on that, later)
+
+Brackets are only used for commands of the second generic type. The square brackets **[** and **]** always lie on the left-hand side of the command; whereas, the curly brackets **{** and **}** always lie on the right-hand side of the command.
+
+Let the first object's original label name be **Body**. Then, the above command would output a set of duplicated objects (of the first object) each labelled as follows:
+```
+Body-Something_1
+Body-Something_2
+Body-Something_3
 ```
 
 ### <br>License
