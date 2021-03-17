@@ -61,13 +61,6 @@ MultiCopy can be loaded by performing the following steps :-
 Before loading the MultiCopy macro, first select one or more objects from the active FreeCAD doccument, then load the macro. Next, follow the instructions in the dialog box, fill in the required inputs, and click on the 'Paste' button. In case of *error* or *warning*, you will automatically be notified of the same. In case you come across an *unexpected error*, communicate the error by mentioning the FreeCAD version, tracing the steps taken, and mentioning whether (and how much) or not any ouput was generated.
 
 
-|   | **Notes** |
-| ------------- | ------------- |
-| **(1)**  | There are a few inevitable *from-to* naming clashes between roman numerals and alphabetic characters.<br>**E.g.:** c, v, i, x, etc.  |
-| **(2)**  | By design, roman numerals take precedence over alphabetic characters.  |
-
-For more information on the MultiCopy macro, refer to its [FreeCAD Macro Wiki Page](http://www.freecadweb.org/wiki/index.php?title=Macro_MultiCopy) or its discussion page on the [FreeCAD Forum](https://forum.freecadweb.org/viewtopic.php?f=22&t=56162).
-
 ### <br>Paste Code Commands
 
 The two recurring commands in their generic form are as follows:
@@ -88,7 +81,7 @@ The **1** and **3** values represent the duplication range where both the values
 
 Brackets are only used for commands of the second generic type. The square brackets **[** and **]** always lie on the left-hand side of the command; whereas, the curly brackets **{** and **}** always lie on the right-hand side of the command.
 
-Let the first object's original label name be **Body**. Then, the above command would output a set of duplicated objects (of the first object) each labelled as follows:
+Let the first object's original label name be **Body**. Then, the above commands would output a set of duplicated objects (of the first object) each labelled as follows:
 ```
 Body-Something_1
 Body-Something_2
@@ -98,23 +91,54 @@ Body-Something_3
 #### Object representation :
 
 Let **i** be an arbitrary i-th object from an assumed list of user-selected objects.
-**[i]** represents the **i-th object** without dependencies (by default)
-**[i|0]** represents the **i-th object** without dependencies (another form)
-**[i|1]** represents the **i-th object** WITH dependencies included
+<br>**[i]** represents the **i-th object** without dependencies (by default)
+<br>**[i|0]** represents the **i-th object** without dependencies (another form)
+<br>**[i|1]** represents the **i-th object** WITH dependencies included
 
 #### Numbering labels :
 
 **{n#}** or **{N#}** are of the type 'Ordinary Numerals'
-**{R#}** or **{ru#}** or **{RU#}** are of the type 'Upper-case Roman Numerals'
-**{r#}** or **{rl#}** or **{RL#}** are of the type 'Lower-case Roman Numerals'
-**{A#}** or **{au#}** or **{AU#}** are of the type 'Upper-case Alphabet'
-**{a#}** or **{al#}** or **{AL#}** are of the type 'Lower-case Alphabet'
+<br>**{R#}** or **{ru#}** or **{RU#}** are of the type 'Upper-case Roman Numerals'
+<br>**{r#}** or **{rl#}** or **{RL#}** are of the type 'Lower-case Roman Numerals'
+<br>**{A#}** or **{au#}** or **{AU#}** are of the type 'Upper-case Alphabet'
+<br>**{a#}** or **{al#}** or **{AL#}** are of the type 'Lower-case Alphabet'
 
 A numbering label can have two additional options:
 1. **{n#X}** Padding (of 'X' digits)
 2. **{n#X|i1}** Nested loop level assignment (to a loop tagged as 'i1')
 
-Padding can be 
+In case of a nested loop level assignment WITHOUT padding, do:
+1. **{n#0|i1}** OR
+2. **{n#|i1}**
+
+#### Example 2 :
+
+```
+from 1 to 2 : i1 :
+  from a to b : i2 :
+    [1|1] = Pasted-{1}-{n#3|i1}-{AU#0|i2}
+```
+
+Here, the objects are pasted along with the dependencies. The 'Ordinary Numeral' label has a padding of '3', and the 'Upper-case Alphabet' label has a padding of '0'. 
+
+**NOTICE** how the 'from-to' loop uses the lower-case alphabet; but the label will be outputted as upper-case.
+<br>The above commands would output a set of duplicated objects (of the first object) each labelled as follows:
+```
+Pasted-Body-001-A
+Pasted-Body-001-B
+Pasted-Body-002-A
+Pasted-Body-002-B
+```
+
+### Notes :
+
+|   |  |
+| ------------- | ------------- |
+| **(1)**  | There are a few inevitable *from-to* naming clashes between roman numerals and alphabetic characters.<br>**E.g.:** c, v, i, x, etc.  |
+| **(2)**  | By design, roman numerals take precedence over alphabetic characters.  |
+| **(3)**  | Dependencies only apply to 'Standard Copy'; its application on 'Simple Copy' will automatically be ignored.  |
+
+For more information on the MultiCopy macro, refer to its [FreeCAD Macro Wiki Page](http://www.freecadweb.org/wiki/index.php?title=Macro_MultiCopy) or its discussion page on the [FreeCAD Forum](https://forum.freecadweb.org/viewtopic.php?f=22&t=56162).
 
 ### <br>License
 MultiCopy is made available under the [GNU Lesser General Public License Version 2.1](https://github.com/melwyncarlo/AeroFoil/blob/main/LICENSE).
