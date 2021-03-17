@@ -62,7 +62,7 @@ Before loading the MultiCopy macro, first select one or more objects from the ac
 
 |   | **Notes** |
 | ------------- | ------------- |
-| **(1)**  | There are a few inevitable *from-to* naming clashes between roman numerals and alphabetic characters.<br>**E.g.** c, v, i, x, etc.  |
+| **(1)**  | There are a few inevitable *from-to* naming clashes between roman numerals and alphabetic characters.<br>**E.g.:** c, v, i, x, etc.  |
 | **(2)**  | By design, roman numerals take precedence over alphabetic characters.  |
 
 For more information on the MultiCopy macro, refer to its [FreeCAD Macro Wiki Page](http://www.freecadweb.org/wiki/index.php?title=Macro_MultiCopy) or its discussion page on the [FreeCAD Forum](https://forum.freecadweb.org/viewtopic.php?f=22&t=56162).
