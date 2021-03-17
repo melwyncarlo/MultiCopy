@@ -27,6 +27,7 @@ MultiCopy allows the duplication (copy and paste) of multiple FreeCAD objects th
 * Add custom label separators
 * Add padded numbering to labels
 * Numbering types: Ordinary numerals, upper/lower-case roman numerals and upper/lower-case alphabetic characters
+* Unique 'Paste Code Commands' that allow multiple duplication procedurally as well as in nested loops
 
 ### <br>Installation
 In the [FreeCAD](https://www.freecadweb.org/) software, MultiCopy can be downloaded directly using the in-built [Addon Manager](https://wiki.freecadweb.org/Std_AddonMgr). You may need to download [GitPython](https://pypi.org/project/GitPython/) (read the relevant [documentation](https://gitpython.readthedocs.io/en/stable/intro.html)) to automatically download the associated folder (and its accompanying files); else, resort to manual download and extraction of the [MultiCopy.zip](https://github.com/melwyncarlo/MultiCopy/blob/main/MultiCopy.zip) file.
