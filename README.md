@@ -74,7 +74,7 @@ The two recurring commands in their generic form are as follows:
 <br>1. `from ... to ... :`
 <br>2. `[...] = ...`
 
-As an example :
+#### Example 1 :
 ```
 from 1 to 3 :
   [1] = {1}-Something_{n#}
@@ -94,6 +94,27 @@ Body-Something_1
 Body-Something_2
 Body-Something_3
 ```
+
+#### Object representation :
+
+Let **i** be an arbitrary i-th object from an assumed list of user-selected objects.
+**[i]** represents the **i-th object** without dependencies (by default)
+**[i|0]** represents the **i-th object** without dependencies (another form)
+**[i|1]** represents the **i-th object** WITH dependencies included
+
+#### Numbering labels :
+
+**{n#}** or **{N#}** are of the type 'Ordinary Numerals'
+**{R#}** or **{ru#}** or **{RU#}** are of the type 'Upper-case Roman Numerals'
+**{r#}** or **{rl#}** or **{RL#}** are of the type 'Lower-case Roman Numerals'
+**{A#}** or **{au#}** or **{AU#}** are of the type 'Upper-case Alphabet'
+**{a#}** or **{al#}** or **{AL#}** are of the type 'Lower-case Alphabet'
+
+A numbering label can have two additional options:
+1. **{n#X}** Padding (of 'X' digits)
+2. **{n#X|i1}** Nested loop level assignment (to a loop tagged as 'i1')
+
+Padding can be 
 
 ### <br>License
 MultiCopy is made available under the [GNU Lesser General Public License Version 2.1](https://github.com/melwyncarlo/AeroFoil/blob/main/LICENSE).
