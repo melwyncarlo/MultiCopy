@@ -140,6 +140,9 @@ objIDList = []
 # It contains the integer-based ID's of the objects being dealt with.
 doc2List = []
 # It contains a list of available documents within FreeCAD.
+random_string = "ugmfdkGNxL"
+# This variable is used solely by the '_solve_paste_code' function.
+# The random string will act as the count variable prefix within the parsed python code.
 doc = doc2 = app.activeDocument()
 # doc and doc2 are the document object variables for the 
 # copy and paste documents respectively.
@@ -323,7 +326,6 @@ class MultiCopy:
 				objIDList.append(str(obj.ID))
 			copy_op = self._stdCopy_op if self._d (4, 'mc_d_radio_1').isChecked() else self._simpleCopy_op
 			del_sel = True if self._d (7, 'mc_d_checkbox_1').isChecked() else False
-			paste_code = self._d (3, 'mc_d_textbox_2').toPlainText()
 			sep_text = self._d(8, 'mc_d_textbox_3').text()
 			pad_digits = self._d(9, 'mc_d_spinbox').value()
 			from_index = self._d (5, 'mc_d_combobox_1').currentIndex()
@@ -574,7 +576,7 @@ class MultiCopy:
 					break
 		tempElem.Label = newName
 
-	def _validate_check_from_to(self, lineOfText, tabs_n, isFixed):
+	def _validate_check_from_to(self, lineOfText, tags_list, tabs_n, isFixed):
 		"""
 		This function performs an auxiliary operation that is part of 
 		the '_validate' function itself. It is responsible for validating 
@@ -590,49 +592,63 @@ class MultiCopy:
 		if tabs_n == 0 or (self._get_tabs_n(lineOfText) <= tabs_n):
 			if isFixed and self._get_tabs_n(lineOfText) != tabs_n:
 				return False
-			if lineOfText.count("from") == 1 and lineOfText.count("to") == 1 and lineOfText.count(":") == 1:
-				tempList1 = lineOfText.split(" ")
+			if lineOfText.count("from") == 1 and lineOfText.count("to") == 1 and \
+			(lineOfText.count(":") == 1 or lineOfText.count(":") == 2):
+				tempList1 = lineOfText.rstrip().split(" ")
 				tempList1 = [i_ for i_ in tempList1 if i_ != " " and i_ != "\t"]
-				if len(tempList1) == 5:
-					if tempList1[1].isnumeric() and tempList1[3].isnumeric():
-						if int(tempList1[1]) == int(tempList1[3]) == 0:
-							return True
-						if int(tempList1[3]) == 0:
-							return False
-						if abs(int(tempList1[1]))/float(tempList1[1]) == 1 and \
-						abs(int(tempList1[3]))/float(tempList1[3]) == 1 and \
-						int(tempList1[1]) <= 500 and int(tempList1[3]) <= 500 and \
-						int(tempList1[1]) <= int(tempList1[3]):
-							return True
-					elif not tempList1[1].isnumeric() and not tempList1[3].isnumeric():
-						tempStr3 = tempList1[1] + tempList1[3]
-						elemType1Exists, elemType2Exists = True, True
-						for tempStr3Elem in tempStr3:
-							tempVar0 = 100
-							try:
-								tempVar0 = alphaMap.index(tempStr3Elem.lower())
-							except Exception:
-								elemType1Exists = False
-								break
-						for tempStr3Elem in tempStr3:
-							tempVar0 = 100
-							try:
-								tempVar0 = romanNumeralMap[0].index(tempStr3Elem.upper())
-							except Exception:
-								if elemType1Exists:
-									elemType2Exists = False
+				if len(tempList1) == 5 or len(tempList1) == 7:
+					if tempList1[4] == ":":
+						if len(tempList1) == 7:
+							#digits_exist = False
+							#for charElem in tempList1[5]:
+							#	if charElem.isnumeric():
+							#		digits_exist = True
+							#		break
+							if len(tempList1[5]) == 0:
+								return False
+							if tempList1[6] != ":" or not tempList1[5][0].isalpha() or \
+							not tempList1[5].isalnum():# or not digits_exist:
+								return False
+							tags_list.append(tempList1[5])
+						if tempList1[1].isnumeric() and tempList1[3].isnumeric():
+							if int(tempList1[1]) == int(tempList1[3]) == 0:
+								return True
+							if int(tempList1[3]) == 0:
+								return False
+							if abs(int(tempList1[1]))/float(tempList1[1]) == 1 and \
+							abs(int(tempList1[3]))/float(tempList1[3]) == 1 and \
+							int(tempList1[1]) <= 500 and int(tempList1[3]) <= 500 and \
+							int(tempList1[1]) <= int(tempList1[3]):
+								return True
+						elif not tempList1[1].isnumeric() and not tempList1[3].isnumeric():
+							tempStr3 = tempList1[1] + tempList1[3]
+							elemType1Exists, elemType2Exists = True, True
+							for tempStr3Elem in tempStr3:
+								try:
+									tempVar0 = alphaMap.index(tempStr3Elem.lower())
+								except Exception:
+									del tempVar0
+									elemType1Exists = False
 									break
-								else:
-									return False
-						if not elemType1Exists or (elemType1Exists and elemType2Exists):
-							if RomanToInt(tempList1[3].upper()) >= RomanToInt(tempList1[1].upper()):
-								return True
-						else:
-							if AlphaToInt(tempList1[3].lower()) >= AlphaToInt(tempList1[1].lower()):
-								return True
+							for tempStr3Elem in tempStr3:
+								try:
+									tempVar0 = romanNumeralMap[0].index(tempStr3Elem.upper())
+								except Exception:
+									del tempVar0
+									if elemType1Exists:
+										elemType2Exists = False
+										break
+									else:
+										return False
+							if not elemType1Exists or (elemType1Exists and elemType2Exists):
+								if RomanToInt(tempList1[3].upper()) >= RomanToInt(tempList1[1].upper()):
+									return True
+							else:
+								if AlphaToInt(tempList1[3].lower()) >= AlphaToInt(tempList1[1].lower()):
+									return True
 		return False
 
-	def _validate_check_assignment(self, lineOfText, tabs_n):
+	def _validate_check_assignment(self, lineOfText, tags_list, tabs_n):
 		"""
 		This function performs an auxiliary operation that is part of 
 		the '_validate' function itself. It is responsible for validating 
@@ -646,8 +662,6 @@ class MultiCopy:
 		global RANDOMSTRING
 		global NUMERALSCODE
 		global MAX_PAD_DIGITS
-		if tabs_n > 0:
-			tempStr1 = "\t" * tabs_n
 		if tabs_n == 0 or (self._get_tabs_n(lineOfText) <= tabs_n):
 			tempStr2 = lineOfText
 			if tabs_n > 0:
@@ -688,14 +702,24 @@ class MultiCopy:
 											codeFound = True
 											break
 									if codeFound:
-										tempVar = tempStr4[tempStr4.index("#")+1:]
+										if tempStr4.count("|") > 1:
+											return False
+										if tempStr4.count("|") == 1:
+											tempVar = tempStr4[tempStr4.index("#")+1:tempStr4.index("|")]
+											tempStr5 = tempStr4[tempStr4.index("|")+1:]
+											if len(tempStr5) == 0:
+												return False
+											if not tempStr5 in tags_list:
+												return False
+										else:
+											tempVar = tempStr4[tempStr4.index("#")+1:]
 										if len(tempVar) != 0 and not tempVar.isnumeric():
 											return False
 										if len(tempVar) != 0 and int(tempVar) != float(tempVar):
 											return False
 										if len(tempVar) != 0 and int(tempVar) > MAX_PAD_DIGITS:
 											return False
-										tempStr3 = tempStr3.replace("{" + ncElem, "")
+										tempStr3 = tempStr3.replace(tempStr4 + "}", "", 1)
 									else:
 										return False
 								return True
@@ -727,7 +751,7 @@ class MultiCopy:
 		the function returns a true; else, it returns a false.
 		"""
 		self._disable()
-		tempVar, tab_n, isValid_, fromCodeCompleted = 0, 0, False, False
+		tempVar, tab_n, isValid_, fromCodeCompleted, tags_list = 0, 0, False, False, []
 		paste_code_list = self._d (3, 'mc_d_textbox_2').toPlainText().split("\n")
 		paste_code_list = [i_ for i_ in paste_code_list if i_ != "\n" and i_ != ""]
 		try:
@@ -740,10 +764,10 @@ class MultiCopy:
 					tempStr1 = self._getFirstWord(paste_code_list[i_])
 					if tempStr1 == "from":
 						if fromCodeCompleted:
-							fromCodeCheck = self._validate_check_from_to(paste_code_list[i_], tab_n, False)
+							fromCodeCheck = self._validate_check_from_to(paste_code_list[i_], tags_list, tab_n, False)
 							tab_n = self._get_tabs_n(paste_code_list[i_])
 						else:
-							fromCodeCheck = self._validate_check_from_to(paste_code_list[i_], tab_n, True)
+							fromCodeCheck = self._validate_check_from_to(paste_code_list[i_], tags_list, tab_n, True)
 						fromCodeCompleted = False
 						if fromCodeCheck and i_ < len(paste_code_list) - 1:
 							if paste_code_list[i_+1][0:tab_n+1] == "\t" * (tab_n+1):
@@ -756,7 +780,7 @@ class MultiCopy:
 							isValid_ = False
 							break
 					elif len(tempStr1) >= 3:
-						if self._validate_check_assignment(paste_code_list[i_], tab_n):
+						if self._validate_check_assignment(paste_code_list[i_], tags_list, tab_n):
 							isValid_ = True
 							fromCodeCompleted = True
 						else:
@@ -807,7 +831,11 @@ class MultiCopy:
 		"""
 		codeStr1, codeStr2 = codeStr[0:codeStr.index("#")], "0"
 		if len(codeStr) - len(codeStr1) > 1:
-			codeStr2 = codeStr[codeStr.index("#")+1:]
+			if codeStr.count("|") == 1:
+				indexStr = codeStr[codeStr.index("|")+1:]
+				codeStr2 = codeStr[codeStr.index("#")+1:codeStr.index("|")]
+			else:
+				codeStr2 = codeStr[codeStr.index("#")+1:]
 		if codeStr1 == "n" or codeStr1 == "N":
 			return "\" + str(" + indexStr + ").zfill(" + codeStr2 + ") + \""
 		elif codeStr1 == "ru" or codeStr1 == "RU" or codeStr1 == "R":
@@ -827,6 +855,7 @@ class MultiCopy:
 		and the parsed code itself.
 		"""
 		global doc2
+		global random_string
 		assignedLabelsList = []
 		paste_code_list = self._d (3, 'mc_d_textbox_2').toPlainText().split("\n")
 		paste_code_list = [i_ for i_ in paste_code_list if i_ != "\n" and i_ != ""]
@@ -839,7 +868,7 @@ class MultiCopy:
 			if tempStr1 == "from":
 				i_count += 1
 				tempStr0 = ("\t" * self._get_tabs_n(paste_code_list[i_])) + \
-				"for i" + str(i_count) + " in range(" + self._toNumerics(tempList1[1]) + \
+				"for " + random_string + str(i_count) + " in range(" + self._toNumerics(tempList1[1]) + \
 				"," + str(int(self._toNumerics(tempList1[3]))+1) + "):\n"
 				from_index = int(self._toNumerics(tempList1[1]))
 				to_index = int(self._toNumerics(tempList1[3])) + 1
@@ -849,6 +878,11 @@ class MultiCopy:
 					break
 				parsableCode += tempStr0
 				testCode += tempStr0
+				if len(tempList1) == 7:
+					parsableCode += ("\t" * (self._get_tabs_n(paste_code_list[i_]) + 1))
+					parsableCode += tempList1[5] + "=" + random_string + str(i_count) + "\n"
+					testCode += ("\t" * (self._get_tabs_n(paste_code_list[i_]) + 1))
+					testCode += tempList1[5] + "=" + random_string + str(i_count) + "\n"
 			else:
 				if "|" in tempList1[0]:
 					assignedIndex = int ( "".join(tempList1[0][1:tempList1[0].index("|")]) ) - 1
@@ -872,21 +906,21 @@ class MultiCopy:
 					if assignedString[j_] == "{":
 						tempVar1 = j_
 						for ncElem in NUMERALSCODE:
-							if ncElem in assignedString[j_:assignedString.index("#",j_)+1]:
-								tempStr2 = assignedString[j_+1:assignedString.index("}",j_)]
+							if ncElem in assignedString[j_:assignedString.index("#",j_+1)+1]:
+								tempStr2 = assignedString[j_+1:assignedString.index("}",j_+1)]
 								if "n#" in ncElem or "N#" in ncElem:
 									tempVar2 = str(i_count)
 								else:
 									tempVar2 = str(i_count) + "+1" if from_index == 0 else str(i_count)
-								tempStr2 = self._solveNumeralsCode(tempStr2, "i" + tempVar2)
+								tempStr2 = self._solveNumeralsCode(tempStr2, random_string + tempVar2)
 								assignedLabel += tempStr2
-								j_ += assignedString.index("}",j_)
+								j_ = assignedString.index("}",j_+1)+1
 								break
 						if j_ == tempVar1:
-							tempVar2 = int(assignedString[j_+1:assignedString.index("}",j_)])
+							tempVar2 = int(assignedString[j_+1:assignedString.index("}",j_+1)])
 							if tempVar2 > 0 and tempVar2 <= len(self.selected_objs):
 								assignedLabel += self.selected_objs[tempVar2-1].Label
-								j_ += assignedString.index("}",j_)
+								j_ = assignedString.index("}",j_+1)+1
 							else:
 								alertMessage = "Only numbers between 1 and " + str(len(self.selected_objs))
 								alertMessage += " are allowed within the brackets. "
@@ -915,7 +949,6 @@ class MultiCopy:
 					setAlertBox (alertMessage, True)
 					testFailed = True
 					break
-				testVar = ""
 				parsableCode += ("\t" * self._get_tabs_n(paste_code_list[i_])) + "copy_op(self.selected_objs[" + str(assignedIndex)
 				parsableCode += "], " + str(dependency) + ")\n" + ("\t" * self._get_tabs_n(paste_code_list[i_]))
 				parsableCode += "self._rename(self.selected_objs[" + str(assignedIndex) + "], \"" + assignedLabel + "\")\n"
@@ -1039,7 +1072,6 @@ alphaMap = [RANDOMSTRING, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
 def IntToAlpha(n_):
 	result = ""
 	try:
-		n_str = str(n_)
 		if n_ >= 1 and n_ <= 26:
 			result = alphaMap[n_]
 		elif n_ >= 27 and n_ <= 702:
