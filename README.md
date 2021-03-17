@@ -63,9 +63,14 @@ Before loading the MultiCopy macro, first select one or more objects from the ac
 
 ### <br>Paste Code Commands
 
-The two recurring commands in their generic form are as follows:
-<br>1. `from ... to ... :`
-<br>2. `[...] = ...`
+The two recurring **commands** in their generic form are as follows:
+1. `from ... to ... :`
+2. `[...] = ...`
+
+While inputting the Paste Code Commands in the relevant input text box, there are three **signals** in the form of coloured strips located at the bottom of the text box:
+1. **Black** denotes that the text box is focussed on, and that the user is currently entering the Paste Code Commands into it.
+2. **Red** denotes that the text box is focussed out of, and that the user-entered commands are SYNTACTICALLY INCORRECT.
+3. **Green** denotes that the text box is focussed out of, and that the user-entered commands are SYNTACTICALLY CORRECT.
 
 #### Example 1 :
 ```
