@@ -86,12 +86,12 @@
 __Title__ = "MultiCopy"
 __Author__ = "Melwyncarlo"
 __Version__ = "1.0.0"
-__Date__ = "2021-03-17"
+__Date__ = "2021-03-18"
 __Comment__ = "MultiCopy allows the duplication (copy and paste) of multiple FreeCAD objects that can be labelled sequentially and in a custom manner."
 __Web__ = "https://github.com/melwyncarlo/MultiCopy"
 __Wiki__ = "http://www.freecadweb.org/wiki/index.php?title=Macro_MultiCopy"
 __Icon__ = "MultiCopy_UI_Files/MultiCopy.png"
-__Help__ = "Select one or more FreeCAD objects, then click on the MultiCopy button/macro, and follow the instructions in the dialog boxe."
+__Help__ = "Select one or more FreeCAD objects, then click on the MultiCopy button/macro, and follow the instructions in the dialog box."
 __Status__ = "stable"
 __Requires__ = "Freecad >= v0.17"
 __Communication__ = "https://github.com/melwyncarlo/MultiCopy/issues"
@@ -104,11 +104,10 @@ __Files__ = "MultiCopy_UI_Files/MultiCopy_Main_Dialog.ui, MultiCopy_UI_Files/Mul
 
 import FreeCAD as app
 import FreeCADGui as gui
-import PySide
 from PySide import QtGui, QtCore
 from PySide.QtGui import *
 from PySide.QtCore import *
-import math, time
+import re, math, time
 
 
 
@@ -1095,14 +1094,11 @@ class MultiCopy:
                     testFailed = True
                     break
                 parsableCode += tempStr0
-                testCode += tempStr0
                 if len(tempList1) == 7:
                     parsableCode += "\t" * (self._get_tabs_n(paste_code_list[i_]) + 1)
                     parsableCode += (
                         tempList1[5] + "=" + random_string + str(i_count) + "\n"
                     )
-                    testCode += "\t" * (self._get_tabs_n(paste_code_list[i_]) + 1)
-                    testCode += tempList1[5] + "=" + random_string + str(i_count) + "\n"
             else:
                 if "|" in tempList1[0]:
                     assignedIndex = (
@@ -1219,31 +1215,16 @@ class MultiCopy:
                     + assignedLabel
                     + '")\n'
                 )
-                testCode += (
-                    ("\t" * self._get_tabs_n(paste_code_list[i_]))
-                    + 'if len(doc2.getObjectsByLabel("'
-                    + assignedLabel
-                )
-                testCode += (
-                    '")) > 0:\n'
-                    + ("\t" * (self._get_tabs_n(paste_code_list[i_]) + 1))
-                    + 'testVar = "'
-                    + assignedLabel
-                )
-                testCode += (
-                    '"\n'
-                    + ("\t" * (self._get_tabs_n(paste_code_list[i_]) + 1))
-                    + "testFailed = True\n"
-                )
-                testCode += (
-                    "\t" * (self._get_tabs_n(paste_code_list[i_]) + 1)
-                ) + "break\n"
-        if not testFailed:
-            exec(testCode)
-            if testFailed:
-                alertMessage = "An object containing the following label already exists in the document :\n\n"
-                alertMessage += testVar
-                setAlertBox(alertMessage, True)
+        testCode = "for labelElem in assignedLabelsList:\n\t"
+        testCode += "if len(doc2.getObjectsByLabel(labelElem)) > 0:\n\t\t"
+        testCode += "testVar = labelElem\n\t\t"
+        testCode += "testFailed = True\n\t\t"
+        testCode += "break\n\n"
+        testCode += "if testFailed:\n\talertMessage = "
+        testCode += '"An object containing the following label already exists in the document :\\n\\n"\n\t'
+        testCode += "alertMessage += testVar\n\t"
+        testCode += "setAlertBox (alertMessage, True)\n"
+        exec(testCode)
         if testFailed:
             return "", False
         else:
