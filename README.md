@@ -78,7 +78,8 @@ from 1 to 3 :
   [1] = {1}-Something_{n#}
 ```
 
-The **1** and **3** values represent the duplication range where both the values are INCLUSIVE. The first (from) value must always be LESS THAN OR EQUAL TO the second (to) value. The values (together) can take the form of one of the five numbering types (**check 'Key Features'**).
+**NOTE** that correct **tab indentations** are very crucial to the commands; they cannot be replaced with spaces.
+<br>The **1** and **3** values represent the duplication range where both the values are INCLUSIVE. The first (from) value must always be LESS THAN OR EQUAL TO the second (to) value. The values (together) can take the form of one of the five numbering types (**check 'Key Features'**).
 
 `[1]` represents the **first object** from an assumed list of user-selected objects.
 <br>`{1}` represents the **label name** of the first object.
