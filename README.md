@@ -80,9 +80,9 @@ from 1 to 3 :
 
 The **1** and **3** values represent the duplication range where both the values are INCLUSIVE. The first (from) value must always be LESS THAN OR EQUAL TO the second (to) value. The values (together) can take the form of one of the five numbering types (**check 'Key Features'**).
 
-**[1]** represents the **first object** from an assumed list of user-selected objects.
-<br>**{1}** represents the **label name** of the first object.
-<br>**{n#}** represents a **numbering label** of the type 'Ordinary Numerals'. (more on that, later)
+`[1]` represents the **first object** from an assumed list of user-selected objects.
+<br>`{1}` represents the **label name** of the first object.
+<br>`{n#}` represents a **numbering label** of the type 'Ordinary Numerals'. (more on that, later)
 
 Brackets are only used for commands of the second generic type. The square brackets **[** and **]** always lie on the left-hand side of the command; whereas, the curly brackets **{** and **}** always lie on the right-hand side of the command.
 
@@ -96,25 +96,25 @@ Body-Something_3
 #### Object representation :
 
 Let **i** be an arbitrary i-th object from an assumed list of user-selected objects.
-<br>**[i]** represents the **i-th object** without dependencies (by default)
-<br>**[i|0]** represents the **i-th object** without dependencies (another form)
-<br>**[i|1]** represents the **i-th object** WITH dependencies included
+<br>`[i]` represents the **i-th object** without dependencies (by default)
+<br>`[i|0]` represents the **i-th object** without dependencies (another form)
+<br>`[i|1]` represents the **i-th object** WITH dependencies included
 
 #### Numbering labels :
 
-**{n#}** or **{N#}** are of the type 'Ordinary Numerals'
-<br>**{R#}** or **{ru#}** or **{RU#}** are of the type 'Upper-case Roman Numerals'
-<br>**{r#}** or **{rl#}** or **{RL#}** are of the type 'Lower-case Roman Numerals'
-<br>**{A#}** or **{au#}** or **{AU#}** are of the type 'Upper-case Alphabet'
-<br>**{a#}** or **{al#}** or **{AL#}** are of the type 'Lower-case Alphabet'
+`{n#}` or `{N#}` are of the type 'Ordinary Numerals'
+<br>`{R#}` or `{ru#}` or `{RU#}` are of the type 'Upper-case Roman Numerals'
+<br>`{r#}` or `{rl#}` or `{RL#}` are of the type 'Lower-case Roman Numerals'
+<br>`{A#}` or `{au#}` or `{AU#}` are of the type 'Upper-case Alphabet'
+<br>`{a#}` or `{al#}` or `{AL#}` are of the type 'Lower-case Alphabet'
 
 A numbering label can have two additional options:
-1. **{n#X}** Padding (of 'X' digits)
-2. **{n#X|i1}** Nested loop level assignment (to a loop tagged as 'i1')
+1. `{n#X}` Padding (of 'X' digits)
+2. `{n#X|i1}` Nested loop level assignment (to a loop tagged as 'i1')
 
 In case of a nested loop level assignment WITHOUT padding, do:
-1. **{n#0|i1}** OR
-2. **{n#|i1}**
+1. `{n#0|i1}` OR
+2. `{n#|i1}`
 
 #### Example 2 :
 
@@ -144,7 +144,7 @@ Pasted-Body-002-B
 | **(2)**  | By design, roman numerals take precedence over alphabetic characters.  |
 | **(3)**  | Dependencies only apply to 'Standard Copy'; its application on 'Simple Copy' will automatically be ignored.  |
 
-For more information on the MultiCopy macro, refer to its [FreeCAD Macro Wiki Page](http://www.freecadweb.org/wiki/index.php?title=Macro_MultiCopy) or its discussion page on the [FreeCAD Forum](https://forum.freecadweb.org/viewtopic.php?f=22&t=56162).
+For more information on the MultiCopy macro, refer to its [FreeCAD Macro Wiki Page](http://www.freecadweb.org/wiki/index.php?title=Macro_MultiCopy) or its discussion page on the [FreeCAD Forum](https://forum.freecadweb.org/viewtopic.php?f=22&t=56753).
 
 ### <br>License
 MultiCopy is made available under the [GNU Lesser General Public License Version 2.1](https://github.com/melwyncarlo/AeroFoil/blob/main/LICENSE).
