@@ -85,7 +85,7 @@
 
 __Title__ = "MultiCopy"
 __Author__ = "Melwyncarlo"
-__Version__ = "1.0.0"
+__Version__ = "1.0.1"
 __Date__ = "2021-03-18"
 __Comment__ = "MultiCopy allows the duplication (copy and paste) of multiple FreeCAD objects that can be labelled sequentially and in a custom manner."
 __Web__ = "https://github.com/melwyncarlo/MultiCopy"
