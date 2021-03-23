@@ -28,6 +28,7 @@ MultiCopy allows the duplication (copy and paste) of multiple FreeCAD objects th
 * Add padded numbering to labels
 * Numbering types: Ordinary numerals, upper/lower-case roman numerals and upper/lower-case alphabetic characters
 * Unique 'Paste Code Commands' that allow multiple duplication procedurally as well as in nested loops
+* Both CUI and GUI methods available
 
 ### <br>Installation
 In the [FreeCAD](https://www.freecadweb.org/) software, MultiCopy can be downloaded directly using the in-built [Addon Manager](https://wiki.freecadweb.org/Std_AddonMgr). You may need to download [GitPython](https://pypi.org/project/GitPython/) (read the relevant [documentation](https://gitpython.readthedocs.io/en/stable/intro.html)) to automatically download the associated folder (and its accompanying files); else, resort to manual download and extraction of the [MultiCopy.zip](https://github.com/melwyncarlo/MultiCopy/blob/main/MultiCopy.zip) file.
@@ -49,7 +50,8 @@ By default, the FreeCAD User Macro directory should be located at :
 ~/.FreeCAD/Macro
 ```
 
-### <br>Usage
+### <br>Usage - GUI Method
+
 MultiCopy can be loaded by performing the following steps :-
 1. Launch the `FreeCAD` application.
 2. Click on the `Macro` menu from the Menu Bar.
@@ -59,6 +61,79 @@ MultiCopy can be loaded by performing the following steps :-
 6. Click on the `Execute` button.
 
 Before loading the MultiCopy macro, first select one or more objects from the active FreeCAD doccument, then load the macro. Next, follow the instructions in the dialog box, fill in the required inputs, and click on the 'Paste' button. In case of *error* or *warning*, you will automatically be notified of the same. In case you come across an *unexpected error*, communicate the error by mentioning the FreeCAD version, tracing the steps taken, and mentioning whether (and how much) or not any ouput was generated.
+
+### <br>Usage - CUI (Python Console) Method
+
+Before running the MultiCopy operation, first select one or more objects from the active FreeCAD doccument.
+
+#### <br>To launch the GUI dialog:
+```python
+import MultiCopy
+
+MultiCopy.Launch()
+```
+
+#### <br>To perform the terminal-based operation:
+
+The MultiCopy command and its DocString are as follows :
+
+```python
+Run(paste_code, copy_type=True, delete_selection=False, paste_document_label=None)
+
+"""Perform the MultiCopy operation by inputting the required arguments.
+
+This is a public function, and can be used by the user to perform the 
+MultiCopy operation directly from a terminal or the FreeCAD application's 
+Python console. 
+
+Parameters
+----------
+paste_code: (str)
+  The paste code commands string.
+  For indentations, use \'\\t\'.
+  For line breaks, use \'\\n\'.
+copy_type: (str) | (int) | (bool)
+  [Optional]
+  The copy operation mode.
+  Values: 'Standard', 'Simple' | 
+    1, 2 | True False
+  Default: 'Standard' | 1 | True
+delete_selection: (bool)
+  [Optional]
+  If true, the selected objects are deleted 
+  after the MultiCopy operation.
+  Default: False
+paste_document_label: (str) | (FreeCAD.Document)
+  [Optional]
+  The name of the document to paste to, or 
+  the document object itself.
+  Default: FreeCAD.ActiveDocument
+
+Return
+----------
+(None)
+"""
+```
+
+##### <br>Example 1 :
+
+To paste the selected objects to the currently active document as a standard copy, and to not delete the selections after the operation.
+```python
+import MultiCopy
+
+some_paste_code_commands = 'from 1 to 2 :\n\t[1] = SomeName_{n#}'
+MultiCopy.Run(some_paste_code_commands)
+```
+
+##### <br>Example 2 :
+
+To paste the selected objects to a different document as a simple copy, and to delete the selections after the operation.
+```python
+import MultiCopy
+
+some_paste_code_commands = 'from 1 to 2 :\n\t[1] = SomeName_{n#}'
+MultiCopy.Run(some_paste_code_commands, True, True, SomeDocumentLabel)
+```
 
 
 ### <br>Paste Code Commands
