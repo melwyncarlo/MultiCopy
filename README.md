@@ -1,4 +1,4 @@
-# ![MultiCopy Logo](https://raw.githubusercontent.com/melwyncarlo/MultiCopy/main/MultiCopy_UI_Files/MultiCopy.svg)<br>MultiCopy - a FreeCAD Macro
+# ![MultiCopy Logo](https://raw.githubusercontent.com/melwyncarlo/MultiCopy/main/MultiCopy.svg)<br>MultiCopy - a FreeCAD Macro
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![License: AGPL v3](https://img.shields.io/github/license/melwyncarlo/MultiCopy)](https://github.com/melwyncarlo/AeroFoil/blob/main/LICENSE)
