@@ -1,7 +1,8 @@
 path_classifiers:
   test:
     - exclude: /
-    - MultiCopy_UI_Files
+    - MultiCopy/resources
+    - MultiCopy.svg
     - .travis.yml
     - MultiCopy.zip
     - INSTALL.sh
