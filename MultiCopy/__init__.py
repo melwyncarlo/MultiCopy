@@ -75,6 +75,7 @@ Key features include:
    upper/lower-case alphabetic characters
  > Unique 'Paste Code Commands' that allow multiple duplication procedurally 
    as well as in nested loops
+ > Both CUI and GUI methods available
 
 For more details, visit:
 https://github.com/melwyncarlo/MultiCopy
