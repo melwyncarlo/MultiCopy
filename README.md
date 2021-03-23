@@ -132,7 +132,7 @@ To paste the selected objects to a different document as a simple copy, and to d
 import MultiCopy
 
 some_paste_code_commands = 'from 1 to 2 :\n\t[1] = SomeName_{n#}'
-MultiCopy.Run(some_paste_code_commands, True, True, SomeDocumentLabel)
+MultiCopy.Run(some_paste_code_commands, True, True, 'SomeDocumentLabel')
 ```
 
 
