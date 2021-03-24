@@ -51,7 +51,8 @@
 # ------------------------------------------------------------------------------------------------
 
 from PySide import QtCore, QtGui
-import math, string
+import math
+import string
 
 
 # Constant Variables

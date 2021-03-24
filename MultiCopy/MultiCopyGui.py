@@ -69,7 +69,6 @@ from PySide.QtGui import (
     QIcon,
     QMessageBox,
     QCursor,
-    QDialog,
 )
 from . import MultiCopyCore
 from . import MultiCopyAuxFunc
@@ -98,7 +97,6 @@ class __Launch_Main_Dialog:
     def __init__(self):
         """This function initializes of the 'MultiCopy' class."""
         self.radio_prev = ""
-        self.isValidated = False
         self.list_of_documents = []
         self.selected_objs = gui.Selection.getSelection()
         self.list_of_documents = MultiCopyCore.GetDocumentsList(doc)
@@ -218,7 +216,6 @@ class __Launch_Main_Dialog:
                     "The inputted Paste Code Commands are invalid.", True
                 )
                 return
-            isValidated = True
         result = MultiCopyCore.RunFromGui(runObj)
         if result[0]:
             self.main_dialog.done(1)
@@ -468,7 +465,6 @@ class Filter(QtCore.QObject):
             self.dialogObj.main_dialog.findChild(
                 QPushButton, "paste_button"
             ).setEnabled(True)
-            self.dialogObj.isValidated = False
             return False
         elif event.type() == QtCore.QEvent.FocusOut:
             self.dialogObj._Launch_Main_Dialog__dialog_is_busy(True)
@@ -485,7 +481,6 @@ class Filter(QtCore.QObject):
                     QLabel, "validation_signal_label"
                 ).setStyleSheet("background-color:crimson")
             self.dialogObj._Launch_Main_Dialog__dialog_is_busy(False)
-            isValidated = True
             return False
         else:
             return False

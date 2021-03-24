@@ -53,8 +53,6 @@
 import FreeCAD as app
 import FreeCADGui as gui
 import re
-import math
-import string
 from . import MultiCopyAuxFunc
 
 
@@ -581,7 +579,7 @@ def __solve_paste_code(objectsList, paste_document, paste_code):
     testCode = ""
     from_index = 0
     alertMessage = ""
-    parsableCode = ""
+    parsableCode = "copy_op = __stdCopy_op if copy_type == 1 else __simpleCopy_op\n"
     assignedLabelsList = []
     paste_code_list = paste_code.split("\n")
     paste_code_list = [elem for elem in paste_code_list if elem != "\n" and elem != ""]
@@ -866,7 +864,6 @@ def __RunPasteCode(
     """
     result = __solve_paste_code(selected_objs, paste_document, code_string)
     if result[0]:
-        copy_op = __stdCopy_op if copy_type == 1 else __simpleCopy_op
         exec(result[1])
         if delete_selection:
             for obj in selected_objs:
@@ -1011,23 +1008,23 @@ def RunFromGui(guiObj):
         or not isinstance(guiObj.paste_code, str)
     ):
         raise TypeError("Some arguments contain values of incorrect type.")
-        return [False, ""]
+        return [False, ""]  # lgtm [py/unreachable-statement]
     if not guiObj.selected_objects:
         raise ValueError("The selected_objects list is empty.")
-        return [False, ""]
+        return [False, ""]  # lgtm [py/unreachable-statement]
     try:
         dummyVar = guiObj.copy_document.Label
     except Exception as err:
         raise Exception(str(err))
-        return [False, ""]
+        return [False, ""]  # lgtm [py/unreachable-statement]
     del dummyVar
     if not all(isinstance(elem, int) for elem in guiObj.from_to):
         raise TypeError("The 'From' and 'To' indices must be of integer values.")
-        return [False, ""]
+        return [False, ""]  # lgtm [py/unreachable-statement]
     for obj in guiObj.selected_objects:
         if not obj:
             raise ValueError("One of the selected objects does not exist.")
-            return [False, ""]
+            return [False, ""]  # lgtm [py/unreachable-statement]
     if guiObj.from_to[0] > guiObj.from_to[1]:
         return [False, "The 'From' value cannot be greater than the 'To' value!"]
     if guiObj.is_paste_code:
@@ -1050,7 +1047,7 @@ def RunFromGui(guiObj):
             raise ValueError(
                 "Some integer-based arguments contain values of incorrect range."
             )
-            return [False, ""]
+            return [False, ""]  # lgtm [py/unreachable-statement]
         return __RunPasteCommands(guiObj)
 
 
