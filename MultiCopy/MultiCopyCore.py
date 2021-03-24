@@ -1085,6 +1085,8 @@ def Run(paste_code, copy_type=True, delete_selection=False, paste_document_label
     ----------
     (None)
     """
+    global doc
+    doc = app.activeDocument()
     paste_document_label = paste_document_label or doc
     # Run a few parameters validation tests
     if len(gui.Selection.getSelection()) == 0:

@@ -96,6 +96,8 @@ class __Launch_Main_Dialog:
 
     def __init__(self):
         """This function initializes of the 'MultiCopy' class."""
+        global doc
+        doc = app.activeDocument()
         self.radio_prev = ""
         self.list_of_documents = []
         self.selected_objs = gui.Selection.getSelection()
