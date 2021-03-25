@@ -743,7 +743,7 @@ def __solve_paste_code(objectsList, paste_document, paste_code):
     testCode += "alertMessage += testVar\n"
     exec(testCode)
     if testFailed:
-        if not alertMessage:
+        if not alertMessage: # lgtm [py/unreachable-statement] 
             alertMessage = "Unexpected error occurred during the MultiCopy operation! Please report."
         return [False, alertMessage]
     else:
